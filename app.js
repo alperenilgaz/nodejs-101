@@ -1,62 +1,35 @@
 var http = require("http")
-
+var fs = require("fs")
 const port = 3000
 
 
 var server = http.createServer((req,res) => {
 
     if(req.url === '/'){
-        res.writeHead(200,{"Content-Type":"text/html"})
-        res.write(`
-            
-            <html>
-                <head>
-                    <title>anasayfa</title>
-                </head>
-                <body>
-                    <h1>Anasayfa</h1>
-                </body>
-            </html>
-            
-            `)
+        fs.readFile("index.html",(error,html) => {
+            res.writeHead(200,{"Content-Type":"text/html"})
+            res.write(html)
             res.end()
+        })
     }
-
-    else if(req.url === '/manager'){
-        res.writeHead(200,{"Content-Type":"text/html"})
-        res.write(`
-             <html>
-                <head>
-                    <title>manager page</title>
-                </head>
-                <body>
-                    <h1>All Manager</h1>
-                </body>
-            </html>
-            
-            
-            `)
+    else if(req.url==='/manager'){
+        fs.readFile("manager.html",(error,html) => {
+            res.writeHead(200,{"Content-Type":"text/html"})
+            res.write(html)
             res.end()
+        })
     }
     else{
-        res.writeHead(200,{"Content-Type":"text/html"})
-        res.write(`
-             <html>
-                <head>
-                    <title>404 error</title>
-                </head>
-                <body>
-                    <h1>Page Not Found</h1>
-                </body>
-            </html>
-            
-            
-            `)
+        fs.readFile("404.html",(error,html) => {
+            res.writeHead(404,{"Content-Type":"text/html"})
+            res.write(html)
             res.end()
+        })
     }
-
+    
 })
+
 
 server.listen(port)
 
-console.log(`node.js server to ${port}`);
+console.log(`nodejs server to ${port}`);
