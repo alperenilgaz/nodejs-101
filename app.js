@@ -5,17 +5,56 @@ const port = 3000
 
 var server = http.createServer((req,res) => {
 
-    // console.log(req.url,req.method);
-    // console.log(res.statusCode);
+    if(req.url === '/'){
+        res.writeHead(200,{"Content-Type":"text/html"})
+        res.write(`
+            
+            <html>
+                <head>
+                    <title>anasayfa</title>
+                </head>
+                <body>
+                    <h1>Anasayfa</h1>
+                </body>
+            </html>
+            
+            `)
+            res.end()
+    }
 
+    else if(req.url === '/manager'){
+        res.writeHead(200,{"Content-Type":"text/html"})
+        res.write(`
+             <html>
+                <head>
+                    <title>manager page</title>
+                </head>
+                <body>
+                    <h1>All Manager</h1>
+                </body>
+            </html>
+            
+            
+            `)
+            res.end()
+    }
+    else{
+        res.writeHead(200,{"Content-Type":"text/html"})
+        res.write(`
+             <html>
+                <head>
+                    <title>404 error</title>
+                </head>
+                <body>
+                    <h1>Page Not Found</h1>
+                </body>
+            </html>
+            
+            
+            `)
+            res.end()
+    }
 
-    res.setHeader("Content-Type","text/html")
-    res.statusCode=200
-    res.statusMessage="OK"
-
-    res.write("<h1>Anasayfa</h1>")
-
-    res.end()
 })
 
 server.listen(port)
